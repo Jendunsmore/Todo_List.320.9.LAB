@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'; // import useState hook from React - use for state management
 import './App.css'; //import CSS
+import TodoItem from './components/TodoItem';
 import { useImmerReducer } from 'use-immer';
 // import useImmerReducer hook, custom hook for managing state with immer library -
 // allows us to write code that looks like
@@ -47,68 +48,61 @@ function todoReducer(draft, action) {
     }
 }
 
-function App() {
-    const [todos, dispatch] = useImmerReducer(todoReducer, []);
-    const [newTodo, setNewTodo] = useState('');
+    function App() {
+        const [todos, dispatch] = useImmerReducer(todoReducer, []);
+        const [newTodo, setNewTodo] = useState('');
 
-    const handleAddTodo = () => {
-        if (newTodo.trim()) {
-            dispatch({ type: 'ADD_TODO', payload: newTodo });
-            setNewTodo('');
-        }
-    };
+        const handleAddTodo = () => {
+            if (newTodo.trim()) {
+                dispatch({ type: 'ADD_TODO', payload: newTodo });
+                setNewTodo('');
+            }
+        };
 
-    return (
-        <div className="app-container">
-            <h1 className="heading">🎃 Halloween Todo List 🎃</h1>
+        const handleToggleComplete = (index) => {
+            dispatch({ type: 'TOGGLE_COMPLETE', index });
+        };
 
-            <div className="new-todo">
-                <input
-                    type="text"
-                    placeholder="What spooky task to add?"
-                    value={newTodo}
-                    onChange={(e) => setNewTodo(e.target.value)}
-                />
-                <button onClick={handleAddTodo}>Add Todo</button>
-            </div>
+        const handleEditTodo = (index) => {
+            dispatch({ type: 'EDIT_TODO', index });
+        };
 
-            <ul className="todo-list">
-                {todos.map((todo, index) => (
-                    <li key={todo.id} className={`todo-item ${todo.completed ? 'completed': ''}`}>
-                        <input
-                            type="checkbox"
-                            checked={todo.completed}
-                            onChange={() => dispatch({ type: 'TOGGLE_COMPLETE', index })}
+        const handleSaveTodo = (index, newText) => {
+            dispatch({ type: 'SAVE_TODO', index, payload: newText });
+        };
+
+        const handleDeleteTodo = (index) => {
+            dispatch({ type: 'DELETE_TODO', index });
+        };
+
+        return (
+            <div className="app-container">
+                <h1 className="heading">🎃 Halloween Todo List 🎃</h1>
+
+                <div className="new-todo">
+                    <input
+                        type="text"
+                        placeholder="What spooky task to add?"
+                        value={newTodo}
+                        onChange={(e) => setNewTodo(e.target.value)}
+                    />
+                    <button onClick={handleAddTodo}>Add Todo</button>
+                </div>
+
+                <ul className="todo-list">
+                    {todos.map((todo, index) => (
+                        <TodoItem
+                            key={todo.id}
+                            todo={todo}
+                            onToggleComplete={() => handleToggleComplete(index)}
+                            onEdit={() => handleEditTodo(index)}
+                            onSave={() => handleSaveTodo(index, todo.text)}
+                            onDelete={() => handleDeleteTodo(index)}
                         />
-                        {todo.isEditing ? (
-                            <input
-                                type="text"
-                                value={todo.text}
-                                onChange={(e) =>
-                                    dispatch({ type: 'SAVE_TODO', index, payload: e.target.value })
-                                }
-                                onBlur={() => dispatch({ type: 'SAVE_TODO', index, payload: todo.text })}
-                            />
-                        ) : (
-                            <span>{todo.text}</span>
-                        )}
-                        <button
-                            onClick={() => dispatch({ type: 'EDIT_TODO', index })}
-                            disabled={todo.completed}
-                        >
-                            Edit
-                        </button>
-                        <button
-                            onClick={() => dispatch({ type: 'DELETE_TODO', index })}
-                            disabled={!todo.completed}
-                        >
-                            Delete
-                        </button>
-                    </li>
-                ))}
-            </ul>
-        </div>
-    );
-}
+                    ))}
+                </ul>
+            </div>
+        );
+    }
 
-export default App;
+    export default App;
