@@ -24,3 +24,28 @@ Your todo list application must have:
 4) New todos should be added to the top of the list visually; the oldest todos should be at the bottom.
 
 */
+
+
+// app.jsx
+/*
+// function todoReducer(draft, action) {
+    switch (action.type) {
+        case 'ADD_TODO':
+            draft.unshift({
+                id: Date.now(),
+                text: action.payload,
+                completed: false,
+                isEditing: false
+            });
+draft: this is a proxy of the current state that immer provides allowing change to
+draft directly instead of returning a new state each time.
+action: object containing type (action type) and additional data (the payload) informing
+reducer what / how to change
+
+case = to action type that updates draft directly.
+ADD_TODO: adds new todo at top of list.
+unshift: method inserts todo object at start
+TOGGLE_COMPLETE: toggles completed status of todo by accessing - draft[action.index] ?
+DELETE_TODO: deletes todo by index through splice
+EDIT_TODO: isEditing = true enabling edit mode
+SAVE_TODO: updates text of todo. exits edit mode = isEditing to false

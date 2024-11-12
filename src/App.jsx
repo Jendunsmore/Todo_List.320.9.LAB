@@ -46,3 +46,24 @@ function todoReducer(draft, action) {
             break;
     }
 }
+
+function App() {
+    const [newTodo, setNewTodo] = useState(''); // useState hool to make state variable for new item// useState hook is used to create a state variable for the new todo item.
+    const [todos,dispatch] = useImmerReducer)todoReducer, []); // useImmerReducer hook is used to create state and dispatch functions.
+    const [newTodo, setNewTodo] = useState(''); // todos is current state of todo list, an arry of todo items
+
+    const handleAddTodo = () => { // event handler called when user clicks add todo// handleAddTodo is an event handler that is called when the user clicks the "Add Todo" button.
+        if (newTodo.trim()) { // if new todo exists
+    const handleAddTodo = () => {
+        if (newTodo.trim()) {
+            dispatch({ type: 'ADD_TODO', payload: newTodo}); // dispatch- a function used ti send an action to the reducer
+            setNewTodo('');
+        }
+    };
+
+return (
+    <div className="app-container">
+        <h1 className="heading"> Halloween Todo List</h1>
+        
+    </div>
+)
