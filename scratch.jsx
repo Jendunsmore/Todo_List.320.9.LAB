@@ -24,7 +24,7 @@ Your todo list application must have:
 4) New todos should be added to the top of the list visually; the oldest todos should be at the bottom.
 
 */
-
+//-------------------------------------------------------------------------------------------------
 
 // app.jsx
 /*
@@ -49,3 +49,7 @@ TOGGLE_COMPLETE: toggles completed status of todo by accessing - draft[action.in
 DELETE_TODO: deletes todo by index through splice
 EDIT_TODO: isEditing = true enabling edit mode
 SAVE_TODO: updates text of todo. exits edit mode = isEditing to false
+
+reducer function - todoReducer: handles action to add, toggle complete status, delete, and edit and save todos
+state & event handling - useImmerReducer: manages the todos array
+useState - newTodo: tracking input for new todos 
