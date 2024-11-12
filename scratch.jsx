@@ -52,4 +52,4 @@ SAVE_TODO: updates text of todo. exits edit mode = isEditing to false
 
 reducer function - todoReducer: handles action to add, toggle complete status, delete, and edit and save todos
 state & event handling - useImmerReducer: manages the todos array
-useState - newTodo: tracking input for new todos 
+useState - newTodo: tracking input for new todos.

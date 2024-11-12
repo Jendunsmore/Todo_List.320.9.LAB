@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-function TodoItem({ todo, onToggleComplete, onEdit, onDelete }) {
+function TodoItem({ todo, onToggleComplete, onEdit, onSave, onDelete }) {
     // this component renders single todo item based on the todo object passed in.
     // todo object contains properties for the text, completed status, and whether it is being edited.
     // the 3 functions passed in - used to handle the events of toggling the completed status,
@@ -24,14 +24,18 @@ function TodoItem({ todo, onToggleComplete, onEdit, onDelete }) {
             <input
                 type="checkbox"
                 checked={todo.completed}
-                onChange={ontoggleComplete}
+                onChange={onToggleComplete}
             />
             {todo.isEditing ? (
                 <input type="text" value={todo.text} onChange={(e) => onEdit(e.target.value)} />
             ) : (
                 <span>{todo.text}</span>
             )}
-            <button onClick={onEdit} disabled={todo.completed}>Edit</button>
+            {todo.isEditing ? (
+                <button onClick={onSave}>Save</button>
+            ) : (
+                <button onClick={onEdit} disabled={todo.completed}>Edit</button>
+            )}
             <button onClick={onDelete} disabled={!todo.completed}>Delete</button>
         </li>
     );

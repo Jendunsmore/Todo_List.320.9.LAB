@@ -74,7 +74,7 @@ function App() {
 
             <ul className="todo-list">
                 {todos.map((todo, index) => (
-                    <li key={todo.id} className={`todo-item ${todo.completed ? 'completed' : ''}`}>
+                    <li key={todo.id} className={`todo-item ${todo.completed ? 'completed': ''}`}>
                         <input
                             type="checkbox"
                             checked={todo.completed}
